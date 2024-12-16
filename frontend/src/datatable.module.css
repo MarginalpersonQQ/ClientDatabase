@@ -1,0 +1,23 @@
+.fun_button{
+    margin : 10px !important; 
+    white-space: nowrap !important; 
+}
+
+.table_data{
+    white-space: nowrap !important;
+    cursor: pointer;
+}
+
+.table_data:hover{
+    white-space: nowrap !important;
+    cursor: pointer;
+}
+
+.table_data_checkbox{
+    width : 20px;
+    height : 20px;
+}
+
+.main_container{
+    margin:0px !important;
+}

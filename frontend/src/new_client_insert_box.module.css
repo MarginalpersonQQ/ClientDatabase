@@ -1,0 +1,62 @@
+.gray_background{
+    position : fixed !important;
+    top : 0 ;
+    left : 0 ;
+    width : 100vw;
+    height : 100vh;
+    background-color: rgba(0, 0, 0, 0.5) ;
+    display : flex;
+    align-items : center ;   
+    justify-content: center ;
+    z-index: 1000;
+}
+
+.insert_box{
+    background: #d6f5f5;
+    border-radius: 8px; 
+    padding: 20px;
+    width : 500px;  
+    position: relative;
+    max-height : 400px;
+    overflow: auto;
+}
+
+.close_button{
+    position : absolute;
+    right : 20px;   
+    top : 20px;
+    background: none;
+    font-size: 24px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.boxtitle{
+    margin-top: 0px;
+    margin-bottom : 10px;
+}
+
+.form_group {
+    margin-bottom : 10px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.label_group{
+    margin-right : 10px;
+}
+
+.submit_button{
+    width: 100%;
+    background-color: #28a745;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.submit_button:active{
+    background-color: #34643f;
+}

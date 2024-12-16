@@ -1,0 +1,45 @@
+.nav{
+    display:flex; 
+    height: 80px;
+    align-items: center;
+    justify-content: space-between; 
+    background-color: rgb(115, 199, 235);
+    border-bottom-style: solid;
+    border-color: rgb(16, 49, 99);
+    position: relative;
+    z-index: 1;
+}
+
+:global(#nav_title){
+    position: absolute;
+    left: 50%; 
+    top: 50%; 
+    transform: translate(-50%, -50%);
+    text-align: center;
+    font-size:40px;
+    margin:0px;
+    padding:0px;
+    color:white;
+    white-space: nowrap;
+    z-index: 1;
+}
+
+:global(#search_input_box){
+    position:absolute;
+    right: 10%;
+    top : 50% ;
+    transform: translate(-10%, -50%);
+    z-index: 2;
+}
+:global(#search_button){
+    position: absolute;
+    right : 5%;
+    top:50%;
+    transform: translate(-5%, -50%);
+    z-index: 2;
+}
+
+
+
+
+

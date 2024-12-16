@@ -1,0 +1,35 @@
+.page_container{
+    display: grid;
+    grid-template-columns: 150px 1fr; /* 左側為側邊欄，右側為主內容區域 */
+    grid-template-rows: auto 1fr; /* 上面為導航欄，下面為主內容區域 */
+    grid-template-areas:
+        "navbar navbar"
+        "sidebar index";
+    height: 100vh;
+    width: 100vw;
+}
+
+.nav{
+    grid-area : navbar;
+}
+.main_content {
+    display: grid;
+    grid-template-columns: 150px 1fr; /* 側邊欄與主內容區域並排 */
+    grid-template-rows: 1fr;
+    grid-template-areas:
+      "sidebar index"; /* 側邊欄放左邊，內容放右邊 */
+    width: 100vw;
+}
+
+.sidelsit{
+    grid-area : sidebar;
+    height : 100%;
+}
+
+.data {
+    grid-area: index; /* 使主內容區域佔據右側 */
+    padding : 20px;
+    display:block;
+    background-color: #fff;
+    overflow: auto;
+}
