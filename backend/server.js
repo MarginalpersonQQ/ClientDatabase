@@ -93,7 +93,7 @@ app.get('/api/getdata/customername', (req, res) => {
 
 app.get('/api/getdata/computer', (req, res) => {
     const query = 
-        `SELECT a.電腦ID, c.客戶名稱, a.電腦IP, a.新增日期, a.自購, a.筆電, b.筆電型號,
+        `SELECT a.電腦ID, c.客戶名稱, a.客戶ID, a.電腦IP, a.新增日期, a.自購, a.筆電, b.筆電型號,
         b.主機板型號, b.CPU型號, b.風扇, b.記憶體, b.電源供應器, b.機殼, 
         b.顯示卡, b.網路卡, b.其他配件, b.保固到期日
         FROM 客戶電腦資料表 a
@@ -205,6 +205,87 @@ app.post('/api/delete/computer', (req, res) => {
         res.json({ success: true, deletedCount: result.affectedRows });
     });
 });
+
+app.put("/api/update/computer", (req, res) => {
+    const { computerData, detailData } = req.body;
+    const computerID = computerData.computerID;
+
+    // 更新 客戶電腦資料表
+    const queryA = `
+        UPDATE 客戶電腦資料表 
+        SET 
+            客戶ID = ?, 
+            電腦IP = ?, 
+            新增日期 = ?, 
+            自購 = ?, 
+            筆電 = ?
+        WHERE 電腦ID = ?
+    `;
+    const valuesA = [
+        computerData.custormerID,
+        computerData.computerIP,
+        computerData.addingtime,
+        computerData.buyItYourself,
+        computerData.laptop,
+        computerID
+    ];
+
+    db.query(queryA, valuesA, (err, resultA) => {
+        if (err) {
+            console.error(err);
+            res.status(500).json({ error: "Failed to update computer data" });
+            return;
+        }
+
+        // 更新 電腦配置紀錄表
+        const queryB = `
+            UPDATE 電腦配置紀錄表 
+            SET 
+                主機板型號 = ?, 
+                CPU型號 = ?, 
+                風扇 = ?, 
+                記憶體 = ?, 
+                電源供應器 = ?, 
+                機殼 = ?, 
+                顯示卡 = ?, 
+                網路卡 = ?, 
+                其他配件 = ?, 
+                保固到期日 = ?, 
+                筆電型號 = ?
+            WHERE 電腦ID = ?
+        `;
+        const valuesB = [
+            detailData.motherboard,
+            detailData.cpu,
+            detailData.fan,
+            detailData.ram,
+            detailData.power,
+            detailData.case,
+            detailData.gpu,
+            detailData.internetcard,
+            detailData.other,
+            detailData.warranty,
+            detailData.laptop_type,
+            computerID
+        ];
+
+        db.query(queryB, valuesB, (err, resultB) => {
+            if (err) {
+                console.error(err);
+                res.status(500).json({ error: "Failed to update detail data" });
+                return;
+            }
+
+            // 成功更新後回傳結果
+            res.json({
+                message: "Data updated successfully",
+                resultA,
+                resultB
+            });
+        });
+    });
+});
+
 
 
 app.listen(5000, '0.0.0.0', () => {

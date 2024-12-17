@@ -1,6 +1,6 @@
 import styles from './computerdatatable.module.css';
 import { Container, Table, TableBody, TableCell, TableHead, TableRow , Button} from '@mui/material';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import NewComputer from './new_computer_insert_box'
 
 export default function ComputerDataTable(){
@@ -27,18 +27,18 @@ export default function ComputerDataTable(){
         }
     };
     const keys =  data.length > 0 ? Object.keys(data[0]) : ['這裡空空如也0', '這裡空空如也1', '這裡空空如也2', '這裡空空如也3']  
-    React.useEffect(() => {
+    useEffect(() => {
         getData();
     }, [refreshKey]); // 空依賴陣列表示組件只會在第一次載入時執行
     
-    //新增資料談窗 -----------------------------------------------------------------------------
+    //新增資料彈窗 -----------------------------------------------------------------------------
     const [isModalOpen, setModalOpen] = useState(false); // 控制彈窗狀態
-    // 客戶電腦資料表數據
+    //// 客戶電腦資料表數據
     const [computerformData, setComputerFormData]= useState({ 
         computerID:"", custormerID: "", computerIP:"", addingtime:"",
         buyItYourself:"N", laptop : "N"
     }); 
-    // 客戶電腦配置表數據
+    //// 客戶電腦配置表數據
     const [detailformDate, setDetailFormDate] = useState({
         laptop_type : "", motherboard:"", cpu:"", fan:"",
         ram:"", power:"", case:"", gpu:"", internetcard:"",
@@ -50,7 +50,7 @@ export default function ComputerDataTable(){
         setModalOpen(false)
         setComputerFormData({ 
             computerID:"", custormerID: "", computerIP:"", addingtime:"",
-            buyItYourself:"N", laptop : "N"
+            buyItYourself:"N", laptop : "N",
         });
         setDetailFormDate(
             {
@@ -80,7 +80,7 @@ export default function ComputerDataTable(){
 
     const handleFormSubmit = (e) => {
         e.preventDefault();
-        console.log("新增資料:", computerformData, detailformDate);
+        // console.log("新增資料:", computerformData, detailformDate);
         setModalOpen(false); // 提交後關閉彈窗
         // 在此處調用 API 或執行其他操作
         upload_new_computer();
@@ -97,7 +97,6 @@ export default function ComputerDataTable(){
             }
         );
     };
-        //提交新資料 尚未修改
     const upload_new_computer = async() =>{
         try{
             const response = await fetch( `${path}/api/insertdata/computer`, {
@@ -157,7 +156,7 @@ export default function ComputerDataTable(){
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
-            const result = await response.json();
+            await response.json();
             alert("刪除成功！");
             setCheckbox([]); // 清空選中列表
             setShowDelButton(false);
@@ -167,10 +166,127 @@ export default function ComputerDataTable(){
             alert("刪除失敗！");
         }
     };
+
+    // 修改資料 ------------------------------------------------------------------
+    const [isEditButtonClick, setEditButtonClick] = useState(false);
+    const [showModifyButton, setShowModifyButton] = useState(false);
+
+    useEffect(() => {
+        if (checkedIDs.length === 1){
+            setShowModifyButton(true)
+        }
+        else{
+            setShowModifyButton(false)
+        }
+    }, [checkedIDs]); 
+
+    const handleEdit = () => {
+        if (checkedIDs.length !== 1) {
+            alert("一次只能修改一筆資料");
+            return;
+        }
+    
+        // 根據勾選的 ID 找到要修改的資料
+        const targetData = data.find((item) => item['電腦ID'] === checkedIDs[0]);
+        if (targetData) {
+            setComputerFormData({
+                computerID: targetData["電腦ID"],
+                custormerID: targetData["客戶ID"], // 依需求填寫
+                computerIP: targetData["電腦IP"],
+                addingtime: targetData["新增日期"].split("T")[0], // 提取日期部分
+                buyItYourself: targetData["自購"],
+                laptop: targetData["筆電"]
+            });
+            setDetailFormDate({
+                laptop_type: targetData["筆電型號"], // 筆電型號
+                motherboard: targetData["主機板型號"],
+                cpu: targetData["CPU型號"],
+                fan: targetData["風扇"], // 依需求填寫
+                ram: targetData["記憶體"],
+                power: targetData["電源供應器"], // 依需求填寫
+                case: targetData["機殼"], // 電腦機殼
+                gpu: targetData["顯示卡"], // 顯示卡
+                internetcard: targetData["網路卡"], // 網路卡
+                other: targetData["其他配件"], // 其他配件
+                warranty: targetData["保固到期日"].split("T")[0] // 提取日期部分
+            });
+            setEditButtonClick(true); // 開啟彈窗
+        }
+    };
+    const handleModifyFormSubmit = async () => {
+        try {
+            const response = await fetch(`${path}/api/update/computer`, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ 
+                    computerData: computerformData, 
+                    detailData: detailformDate,
+                }),
+            });
+            if (!response.ok) throw new Error("修改失敗");
+            await response.json();
+            setEditButtonClick(false); // 關閉彈窗
+            alert("修改成功!");
+            setRefreshKey(refreshKey * -1); // 刷新數據
+        } catch (error) {
+            console.error("修改失敗：", error);
+            alert("修改失敗！");
+        }
+    };
+    
+    const handleFormModify = (e) => {
+        e.preventDefault();
+        // 在此處調用 API 或執行其他操作
+        if(computerformData['laptop'] === "Y"){
+        }
+        else{
+        }
+        console.log(detailformDate)
+        handleModifyFormSubmit();
+        //提交後初始化輸入格
+        setComputerFormData({ 
+            computerID:"", custormerID: "", computerIP:"", addingtime:"",
+            buyItYourself:"N", laptop : "N"
+        });
+        setDetailFormDate(
+            {
+                laptop_type : "", motherboard:"", cpu:"", fan:"",
+                ram:"", power:"", case:"", gpu:"", internetcard:"",
+                other:"",  warranty:null
+            }
+        );
+    };
+
     
     //return structure------------------------------------------------------------------
     return (
         <Container className = {styles.main_container}>
+            {/* 修改資料彈窗 */}
+            {isEditButtonClick && (
+                <NewComputer 
+                    isOpen = {isEditButtonClick} 
+                    onClose={() => {setEditButtonClick(false)
+                        setComputerFormData({ 
+                            computerID:"", custormerID: "", computerIP:"", addingtime:"",
+                            buyItYourself:"N", laptop : "N"
+                        });
+                        setDetailFormDate(
+                            {
+                                laptop_type : "", motherboard:"", cpu:"", fan:"",
+                                ram:"", power:"", case:"", gpu:"", internetcard:"",
+                                other:"",  warranty:null
+                            }
+                        );
+                    }}
+                    computerformData={computerformData} 
+                    detailFormData={detailformDate} 
+                    oncomputerFormChange={handlecomputerFormChange}
+                    ondetailFromChange={handledetailFromChange}
+                    oncheckboxChange={handleInputCheckboxChange}
+                    onFormSubmit={handleFormModify}
+                />
+            )}
+            {/* 新增資料彈窗 */}
             {isModalOpen && (
                 <NewComputer 
                     isOpen = {isModalOpen} 
@@ -186,6 +302,7 @@ export default function ComputerDataTable(){
             <div>
                 <Button className = {styles.fun_button} variant='contained' onClick={handleOpenModal}>新增資料</Button>
                 {showDelButton && <Button color = "error" className = {styles.fun_button} variant='contained' onClick = {handleDelete}>刪除資料</Button>}
+                {showModifyButton && <Button  color = "warning" className = {styles.fun_button} variant='contained' onClick = {handleEdit}>修改資料</Button>}
             </div>
             <Table className={styles.table_data}>
                 <TableHead>
@@ -193,9 +310,8 @@ export default function ComputerDataTable(){
                     <TableCell className={styles.table_title}/>
                     {
                         keys.map((key) => (
-                                <TableCell>{key}</TableCell>
-                            )
-                        )
+                            key !== "客戶ID" ? <TableCell key={key}>{key}</TableCell> : null
+                        ))
                     }
                     </TableRow>
                 </TableHead>    

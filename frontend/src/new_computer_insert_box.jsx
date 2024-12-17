@@ -24,8 +24,14 @@ export default function New_data ({isOpen, onClose, computerformData, detailForm
             })
             .catch(error => {
                 console.error('發生錯誤:', error);
-            });
+        });
     }, []);
+    useEffect(() => {
+        // 如果有預設的 customerID，設定給 customerPick
+        if (computerformData.custormerID) {
+            setCustomerPick(computerformData.custormerID);
+        }
+    }, [computerformData.custormerID]); // 依賴項監聽 computerformData.custormerID\
 
     // 取得當前時間按鈕
     const right_now_time = () => {
@@ -41,8 +47,6 @@ export default function New_data ({isOpen, onClose, computerformData, detailForm
             },
         });
     };
-
-
 
     if (!isOpen) return null;
     return (

@@ -82,7 +82,6 @@ export default function DataTable (){
             }
             catch (error){
                 console.error("Error submitting data:", error);
-                alert("新增失敗")
             }
         };
 
@@ -119,7 +118,7 @@ export default function DataTable (){
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
-                await response.json();
+                const result = await response.json();
                 alert("刪除成功！");
                 setCheckbox([]); // 清空選中列表
                 setShowDelButton(false);
@@ -127,34 +126,6 @@ export default function DataTable (){
                 } catch (error) {
                 console.error("刪除失敗：", error);
                 alert("刪除失敗！");
-            }
-        };
-
-        // 修改資料 ------------------------------------------------------------------
-        const [isEditButtonClick, setEditButtonClick] = useState(false);
-        const [editData, setEditData] = useState(null);
-        const [showModifyButton, setShowModifyButton] = useState(false);
-    
-        React.useEffect(() => {
-            if (checkedIDs.length === 1){
-                setShowModifyButton(true)
-            }
-            else{
-                setShowModifyButton(false)
-            }
-        }, [checkedIDs]); 
-
-        const handleEdit = () => {
-            if (checkedIDs.length !== 1) {
-                alert("一次只能修改一筆資料");
-                return;
-            }
-        
-            // 根據勾選的 ID 找到要修改的資料
-            const targetData = data.find((item) => item['電腦ID'] === checkedIDs[0]);
-            if (targetData) {
-                setEditData(targetData); // 填充數據
-                setEditButtonClick(true); // 開啟彈窗
             }
         };
         
@@ -173,7 +144,6 @@ export default function DataTable (){
                 <div>
                     <Button className = {styles.fun_button} variant='contained' onClick={handleOpenModal}>新增資料</Button>
                     {showDelButton && <Button  color = "error" className = {styles.fun_button} variant='contained' onClick = {handleDelete}>刪除資料</Button>}
-                    {showModifyButton && <Button  color = "warning" className = {styles.fun_button} variant='contained' onClick = {handleEdit}>修改資料</Button>}
                 </div>
                 <Table className={styles.table_data}>
                     <TableHead>
