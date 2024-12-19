@@ -239,17 +239,6 @@ export default function ComputerDataTable(){
             );
             alert("修改成功!");
             setRefreshKey(refreshKey * -1); // 刷新數據
-            setComputerFormData({ 
-            computerID:"", custormerID: "", computerIP:"", addingtime:"",
-            buyItYourself:"N", laptop : "N"
-        });
-        setDetailFormDate(
-            {
-                laptop_type : "", motherboard:"", cpu:"", fan:"",
-                ram:"", power:"", case:"", gpu:"", internetcard:"",
-                other:"",  warranty:null
-            }
-        );
         } catch (error) {
             console.error("修改失敗：", error);
             alert("修改失敗！");
@@ -259,7 +248,6 @@ export default function ComputerDataTable(){
     const handleFormModify = (e) => {
         e.preventDefault();
         // 在此處調用 API 或執行其他操作
-        console.log(detailformDate)
         handleModifyFormSubmit();
         //提交後初始化輸入格
     };

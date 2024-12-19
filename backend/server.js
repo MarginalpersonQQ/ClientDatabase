@@ -96,7 +96,7 @@ app.put('/api/update/customer' , (req, res) => {
     db.query(query, [name, phone1, phone2, phone3, contentperson, taxid, address, addingtime, remark, customerID], (err, result) => {
         if (err) {
             console.error("修改資料失敗:", err);
-            return res.status(500).json({ error: "修改資料時發生錯誤。" });
+            return res.status(500).json({ error: err });
         }
     
         // console.log("新增成功:", result);

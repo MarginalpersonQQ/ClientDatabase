@@ -134,7 +134,7 @@ export default function DataTable (){
         const [isEditButtonClick, setEditButtonClick] = useState(false);
         const [showModifyButton, setShowModifyButton] = useState(false);
     
-        React.useEffect(() => {
+        useEffect(() => {
             if (checkedIDs.length === 1){
                 setShowModifyButton(true)
             }
