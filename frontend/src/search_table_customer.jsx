@@ -12,13 +12,16 @@ export default function DataTable (textOfSearch){
         const path = '';
         const [data, setData] = React.useState([]);
         const getData = async () => {
-            console.log(textOfSearch)
+            console.log(textOfSearch);
             try {
-                const response = await fetch(`${path}/api/searchdata/customer?keyword=${encodeURIComponent(textOfSearch)}`, {
-                    method: "GET",  // 使用 GET 請求
+                const response = await fetch(`${path}/api/searchdata/customer`, {
+                    method: "POST",  
                     headers: {
                         "Content-Type": "application/json",  // 設定內容類型
                     },
+                    body: JSON.stringify(
+                        textOfSearch, // 這裡改為傳送 `keyword`
+                    ), 
                 });
         
                 if (!response.ok) {
@@ -29,7 +32,7 @@ export default function DataTable (textOfSearch){
         
                 const result = await response.json();  // 解析回應結果
                 setData(result);  // 更新狀態
-                console.log(result)
+                console.log(result);
         
             } catch (error) {
                 console.error('There was a problem with the fetch operation:', error);

@@ -39,7 +39,6 @@ app.post('/api/login' , (req, res) => {
 
 // 客戶頁面
 app.get('/api/getdata/customer', (req, res) => {
-    const {keyword} = req.body;
     const query = 'SELECT * FROM  客戶資料表'; // 替換為你的資料表名稱
     db.query(query, (err, results) => {
         if (err) {
@@ -53,10 +52,10 @@ app.get('/api/getdata/customer', (req, res) => {
 });
 
 
-app.get('/api/searchdata/customer', (req, res) => {
-    const { keyword } = req.query;  // 確保提供關鍵字
-    console.log(keyword);
-    if (!keyword) {
+app.post('/api/searchdata/customer', (req, res) => {
+    const { textOfSearch } = req.body;  // 確保提供關鍵字
+    const keyword = textOfSearch;
+    if (!textOfSearch) {
         return res.status(400).send('Keyword is required.');
     }
     const query = `
@@ -200,8 +199,9 @@ app.get('/api/getdata/computer', (req, res) => {
     })
 });
 
-app.get('/api/searchdata/computer', (req, res) => {
-    const { keyword } = req.query;  // 確保提供關鍵字
+app.post('/api/searchdata/computer', (req, res) => {
+    const { textOfSearch } = req.body;  // 確保提供關鍵字
+    const keyword = textOfSearch;
     if (!keyword) {
         return res.status(400).send('Keyword is required.');
     }
