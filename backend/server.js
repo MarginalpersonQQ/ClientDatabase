@@ -49,7 +49,7 @@ app.get('/api/getdata/customer', (req, res) => {
     });
 });
 app.post('/api/insertdata/customer' , (req, res) => {
-    const {name, phone1, phone2, phone3, contentperson, taxid, address, addingtime, remark} = req.body;
+    const {name, phone1, phone2, phone3, contentperson, taxid, address, addingtime, remark } = req.body;
     const id = uuidv4();
     const query = "INSERT INTO 客戶資料表 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
@@ -73,6 +73,37 @@ app.post('/api/delete/customer', (req, res) => {
     db.query(query, [ids], (err, result) => {
         if (err) throw err;
         res.json({ success: true, deletedCount: result.affectedRows });
+    });
+});
+
+app.post('/api/update/customer' , (req, res) => {
+    const {name, phone1, phone2, phone3, contentperson, taxid, address, addingtime, remark, customerID} = req.body;
+    const query = `
+        UPDATA 客戶資料表 
+        SET
+        客戶名稱 = ?,
+        客戶電話1 = ?,
+        客戶電話2 = ?,
+        客戶電話3 = ?,
+        聯絡人= ?,
+        統一編號 = ?,
+        地址 = ?,
+        新增日期 = ?,
+        備註 = ?
+        WHERE 客戶ID = ?
+        `;
+
+    db.query(query, [name, phone1, phone2, phone3, contentperson, taxid, address, addingtime, remark, customerID], (err, result) => {
+        if (err) {
+            console.error("修改資料失敗:", err);
+            return res.status(500).json({ error: "修改資料時發生錯誤。" });
+        }
+    
+        // console.log("新增成功:", result);
+        res.status(201).json({
+            message: "修改資料成功！",
+            data: { id, name},
+        });
     });
 });
 

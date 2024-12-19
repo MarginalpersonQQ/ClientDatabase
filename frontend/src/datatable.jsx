@@ -37,7 +37,7 @@ export default function DataTable (){
         const [formData, setFormData] = useState({ 
                                                     name: "", phone1: "", phone2:"", 
                                                     phone3:"", contentperson:"", taxid:"",
-                                                    address:"", addingtime:"",remark:""
+                                                    address:"", addingtime:"",remark:"",custormerID:""
                                                 }); // 表單數據
         const handleOpenModal = () => setModalOpen(true);
         const handleCloseModal = () => {
@@ -45,7 +45,7 @@ export default function DataTable (){
             setFormData({ 
                 name: "", phone1: "", phone2:"", 
                 phone3:"", contentperson:"", taxid:"",
-                address:"", addingtime:"",remark:""
+                address:"", addingtime:"",remark:"",custormerID:""
             });
         };                                        
         const handleFormChange = (e) => {
@@ -61,7 +61,7 @@ export default function DataTable (){
             setFormData({ 
                 name: "", phone1: "", phone2:"", 
                 phone3:"", contentperson:"", taxid:"",
-                address:"", addingtime:"",remark:""
+                address:"", addingtime:"",remark:"",custormerID:""
             });
         };
         const upload_new_client = async() =>{
@@ -132,7 +132,6 @@ export default function DataTable (){
 
         // 修改資料 ------------------------------------------------------------------
         const [isEditButtonClick, setEditButtonClick] = useState(false);
-        const [editData, setEditData] = useState(null);
         const [showModifyButton, setShowModifyButton] = useState(false);
     
         React.useEffect(() => {
@@ -151,16 +150,68 @@ export default function DataTable (){
             }
         
             // 根據勾選的 ID 找到要修改的資料
-            const targetData = data.find((item) => item['電腦ID'] === checkedIDs[0]);
+            const targetData = data.find((item) => item['客戶ID'] === checkedIDs[0]);
             if (targetData) {
-                setEditData(targetData); // 填充數據
+                setFormData({
+                    name: targetData["客戶名稱"], phone1: targetData["客戶電話1"], phone2:targetData["客戶電話2"], 
+                    phone3:targetData["客戶電話3"], contentperson:targetData["聯絡人"], taxid:targetData["統一編號"],
+                    address:targetData["地址"], addingtime:targetData["新增日期"],remark:targetData["備註"],custormerID:targetData["客戶ID"]
+                });
                 setEditButtonClick(true); // 開啟彈窗
             }
         };
-        
+        const handleModifyFormSubmit = async () => {
+            try {
+                const response = await fetch(`${path}/api/update/custormer`, {
+                    method: "PUT",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ 
+                        
+                    }),
+                });
+                if (!response.ok) throw new Error("修改失敗");
+                await response.json();
+                setEditButtonClick(false); // 關閉彈窗
+                alert("修改成功!");
+                setRefreshKey(refreshKey * -1); // 刷新數據
+            } catch (error) {
+                console.error("修改失敗：", error);
+                alert("修改失敗！");
+            }
+        };
+        const handleFormModify = (e) => {
+            e.preventDefault();
+            // 在此處調用 API 或執行其他操作
+            console.log(detailformDate)
+            handleModifyFormSubmit();
+            //提交後初始化輸入格
+            setFormData({ 
+                name: "", phone1: "", phone2:"", 
+                phone3:"", contentperson:"", taxid:"",
+                address:"", addingtime:"",remark:"",custormerID:""
+            });
+        };
+
         //return structure------------------------------------------------------------------
         return (
             <Container className = {styles.main_container}>
+                {/*修改資料彈窗*/}
+                {isEditButtonClick && (
+                    <Newclient 
+                        isOpen = {isEditButtonClick} 
+                        onClose={() => {setEditButtonClick(false)
+                            setFormData({ 
+                                name: "", phone1: "", phone2:"", 
+                                phone3:"", contentperson:"", taxid:"",
+                                address:"", addingtime:"",remark:"",custormerID:""
+                            });
+                        }}
+                        formData={formData}  
+                        onFormChange={handleFormChange}
+                        onFormSubmit={handleFormModify}
+                    />
+                )}
+                {/*新增資料彈窗*/}
                 {isModalOpen && (
                     <Newclient 
                         isOpen = {isModalOpen} 
