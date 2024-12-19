@@ -6,7 +6,7 @@ export default function New_data ({isOpen, onClose, computerformData, detailForm
     
 
     // 客戶選擇器
-    const path = 'http://127.0.0.1:5000';
+    const path = '';
     const [customerPick, setCustomerPick] = useState('');
     const [customerList, setCustomerList] = useState([]);
 
