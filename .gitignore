@@ -6,6 +6,3 @@ node_modules/
 
 # 忽略所有 .env 檔案
 .env
-# 忽略所有編譯後的檔案
-/dist/
-/build/

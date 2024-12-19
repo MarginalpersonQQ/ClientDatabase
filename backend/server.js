@@ -15,6 +15,7 @@ const db = mysql.createConnection({
     database: 'bvruvf9olsifjtkx99q4',
     port: 3306 
 });
+
 db.connect(err => {
     if (err) {
         console.error('Database connection failed:', err.stack);
@@ -22,6 +23,7 @@ db.connect(err => {
     }
     console.log('Connected to MySQL database.');
 });
+
 app.use(cors());
 app.use(express.json());
 
