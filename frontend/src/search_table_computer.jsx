@@ -12,12 +12,11 @@ export default function ComputerDataTable(textOfSearch){
     const [data, setData] = React.useState([]);
     const getData = async () => {
         try {
-            const response = await  fetch( `${path}/api/searchdata/computer`, {
+            const response = await  fetch( `${path}/api/searchdata/computer?keyword=${encodeURIComponent(textOfSearch)}`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ keyword: textOfSearch }), // 將表單數據轉為 JSON
             });
             if (!response.ok){
                 throw new Error('Network response was not ok');

@@ -54,7 +54,7 @@ app.get('/api/getdata/customer', (req, res) => {
 
 
 app.get('/api/searchdata/customer', (req, res) => {
-    const { keyword } = req.body;  // 確保提供關鍵字
+    const { keyword } = req.query;  // 確保提供關鍵字
     if (!keyword) {
         return res.status(400).send('Keyword is required.');
     }
@@ -199,8 +199,8 @@ app.get('/api/getdata/computer', (req, res) => {
     })
 });
 
-app.get('/api/getdata/computer', (req, res) => {
-    const { keyword } = req.body;  // 確保提供關鍵字
+app.get('/api/searchdata/computer', (req, res) => {
+    const { keyword } = req.query;  // 確保提供關鍵字
     if (!keyword) {
         return res.status(400).send('Keyword is required.');
     }
