@@ -226,8 +226,30 @@ export default function ComputerDataTable(){
             if (!response.ok) throw new Error("修改失敗");
             await response.json();
             setEditButtonClick(false); // 關閉彈窗
+            setComputerFormData({ 
+                computerID:"", custormerID: "", computerIP:"", addingtime:"",
+                buyItYourself:"N", laptop : "N"
+            });
+            setDetailFormDate(
+                {
+                    laptop_type : "", motherboard:"", cpu:"", fan:"",
+                    ram:"", power:"", case:"", gpu:"", internetcard:"",
+                    other:"",  warranty:null
+                }
+            );
             alert("修改成功!");
             setRefreshKey(refreshKey * -1); // 刷新數據
+            setComputerFormData({ 
+            computerID:"", custormerID: "", computerIP:"", addingtime:"",
+            buyItYourself:"N", laptop : "N"
+        });
+        setDetailFormDate(
+            {
+                laptop_type : "", motherboard:"", cpu:"", fan:"",
+                ram:"", power:"", case:"", gpu:"", internetcard:"",
+                other:"",  warranty:null
+            }
+        );
         } catch (error) {
             console.error("修改失敗：", error);
             alert("修改失敗！");
@@ -240,17 +262,6 @@ export default function ComputerDataTable(){
         console.log(detailformDate)
         handleModifyFormSubmit();
         //提交後初始化輸入格
-        setComputerFormData({ 
-            computerID:"", custormerID: "", computerIP:"", addingtime:"",
-            buyItYourself:"N", laptop : "N"
-        });
-        setDetailFormDate(
-            {
-                laptop_type : "", motherboard:"", cpu:"", fan:"",
-                ram:"", power:"", case:"", gpu:"", internetcard:"",
-                other:"",  warranty:null
-            }
-        );
     };
 
     

@@ -172,6 +172,11 @@ export default function DataTable (){
                 if (!response.ok) throw new Error("修改失敗");
                 await response.json();
                 setEditButtonClick(false); // 關閉彈窗
+                setFormData({ 
+                    name: "", phone1: "", phone2:"", 
+                    phone3:"", contentperson:"", taxid:"",
+                    address:"", addingtime:"",remark:"",custormerID:""
+                });
                 alert("修改成功!");
                 setRefreshKey(refreshKey * -1); // 刷新數據
             } catch (error) {
@@ -184,11 +189,7 @@ export default function DataTable (){
             // 在此處調用 API 或執行其他操作
             handleModifyFormSubmit();
             //提交後初始化輸入格
-            setFormData({ 
-                name: "", phone1: "", phone2:"", 
-                phone3:"", contentperson:"", taxid:"",
-                address:"", addingtime:"",remark:"",custormerID:""
-            });
+            
         };
 
         //return structure------------------------------------------------------------------

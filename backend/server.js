@@ -79,7 +79,7 @@ app.post('/api/delete/customer', (req, res) => {
 app.put('/api/update/customer' , (req, res) => {
     const {name, phone1, phone2, phone3, contentperson, taxid, address, addingtime, remark, customerID} = req.body;
     const query = `
-        UPDATA 客戶資料表 
+        UPDATE 客戶資料表 
         SET
             客戶名稱 = ?,
             客戶電話1 = ?,
@@ -102,7 +102,6 @@ app.put('/api/update/customer' , (req, res) => {
         // console.log("新增成功:", result);
         res.status(201).json({
             message: "修改資料成功！",
-            data: { id, name},
         });
     });
 });
