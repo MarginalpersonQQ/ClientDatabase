@@ -78,6 +78,9 @@ app.post('/api/delete/customer', (req, res) => {
 
 app.put('/api/update/customer' , (req, res) => {
     const {name, phone1, phone2, phone3, contentperson, taxid, address, addingtime, remark, customerID} = req.body;
+    if (!customerID) {
+        return res.status(400).json({ error: "缺少必要參數：客戶ID" });
+    }
     const query = `
         UPDATE 客戶資料表 
         SET
@@ -89,20 +92,27 @@ app.put('/api/update/customer' , (req, res) => {
             統一編號 = ?,
             地址 = ?,
             新增日期 = ?,
-            備註 = ?,
+            備註 = ?
             WHERE 客戶ID = ?
         `;
 
     db.query(query, [name, phone1, phone2, phone3, contentperson, taxid, address, addingtime, remark, customerID], (err, result) => {
-        if (err) {
-            console.error("修改資料失敗:", err);
-            return res.status(500).json({ error: err });
+        try{
+            if (err) {
+                console.error("修改資料失敗:", err);
+                return res.status(500).json({ error: "修改資料時發生伺服器錯誤", details: err.message });
+            }
+            if (result.affectedRows === 0) {
+                return res.status(404).json({ error: "找不到對應的客戶資料，修改失敗" });
+            }
+            res.status(200).json({
+                message: "修改資料成功！",
+                affectedRows: result.affectedRows,
+            });
+        } catch (error) {
+            console.error("伺服器內部錯誤:", error);
+            res.status(500).json({ error: "伺服器內部錯誤", details: error.message });
         }
-    
-        // console.log("新增成功:", result);
-        res.status(201).json({
-            message: "修改資料成功！",
-        });
     });
 });
 

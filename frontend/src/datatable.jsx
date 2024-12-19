@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Table, TableBody, TableCell, TableHead, TableRow , Button} from '@mui/material';
 import styles from './datatable.module.css'
 
@@ -188,8 +188,6 @@ export default function DataTable (){
             e.preventDefault();
             // 在此處調用 API 或執行其他操作
             handleModifyFormSubmit();
-            //提交後初始化輸入格
-            
         };
 
         //return structure------------------------------------------------------------------
