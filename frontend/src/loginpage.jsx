@@ -22,6 +22,7 @@ function LoginPage ({ setIsLoggedIn }) {
         });
         const data = await response.json();
         if (data.success) {
+            alert("登入成功!!")
             setIsLoggedIn(true);
             message = true;
             console.log(message);
