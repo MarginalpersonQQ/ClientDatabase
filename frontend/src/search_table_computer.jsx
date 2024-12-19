@@ -293,7 +293,7 @@ export default function ComputerDataTable(textOfSearch){
                 />
             )}
             {/* 新增資料彈窗 */}
-            {/* {isModalOpen && (
+            {isModalOpen && (
                 <NewComputer 
                     isOpen = {isModalOpen} 
                     onClose={handleCloseModal}
@@ -304,7 +304,7 @@ export default function ComputerDataTable(textOfSearch){
                     oncheckboxChange={handleInputCheckboxChange}
                     onFormSubmit={handleFormSubmit}
                 />
-            )} */}
+            )}
             <div>
                 <Button className = {styles.fun_button} variant='contained' onClick={handleOpenModal}>新增資料</Button>
                 {showDelButton && <Button color = "error" className = {styles.fun_button} variant='contained' onClick = {handleDelete}>刪除資料</Button>}

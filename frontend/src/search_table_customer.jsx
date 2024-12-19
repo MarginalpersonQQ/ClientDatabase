@@ -223,7 +223,7 @@ export default function DataTable (textOfSearch){
                     />
                 )}
                 {/*新增資料彈窗*/}
-                {/* {isModalOpen && (
+                {isModalOpen && (
                     <Newclient 
                         isOpen = {isModalOpen} 
                         onClose={handleCloseModal}
@@ -231,7 +231,7 @@ export default function DataTable (textOfSearch){
                         onFormChange={handleFormChange}
                         onFormSubmit={handleFormSubmit}
                     />
-                )} */}
+                )}
                 <div>
                     <Button className = {styles.fun_button} variant='contained' onClick={handleOpenModal}>新增資料</Button>
                     {showDelButton && <Button  color = "error" className = {styles.fun_button} variant='contained' onClick = {handleDelete}>刪除資料</Button>}
