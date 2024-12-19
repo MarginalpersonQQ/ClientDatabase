@@ -13,7 +13,7 @@ export default function ComputerDataTable(textOfSearch){
     const getData = async () => {
     console.log(textOfSearch);
     try {
-        const response = await fetch(`${path}/api/searchdata/customer`, {
+        const response = await fetch(`${path}/api/searchdata/computer`, {
             method: "POST",  
             headers: {
                 "Content-Type": "application/json",  // 設定內容類型
