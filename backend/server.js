@@ -81,16 +81,16 @@ app.put('/api/update/customer' , (req, res) => {
     const query = `
         UPDATA 客戶資料表 
         SET
-        客戶名稱 = ?,
-        客戶電話1 = ?,
-        客戶電話2 = ?,
-        客戶電話3 = ?,
-        聯絡人= ?,
-        統一編號 = ?,
-        地址 = ?,
-        新增日期 = ?,
-        備註 = ?
-        WHERE 客戶ID = ?
+            客戶名稱 = ?,
+            客戶電話1 = ?,
+            客戶電話2 = ?,
+            客戶電話3 = ?,
+            聯絡人= ?,
+            統一編號 = ?,
+            地址 = ?,
+            新增日期 = ?,
+            備註 = ?,
+            WHERE 客戶ID = ?
         `;
 
     db.query(query, [name, phone1, phone2, phone3, contentperson, taxid, address, addingtime, remark, customerID], (err, result) => {
