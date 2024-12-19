@@ -13,7 +13,7 @@ export default function DataTable (textOfSearch){
         const [data, setData] = React.useState([]);
         const getData = async () => {
             try {
-                const response = await fetch(`${path}/api/searchdata/customer?keyword=${encodeURIComponent(textOfSearch)}`, {
+                const response = await fetch(`${path}/api/searchdata/customer?keyword=${textOfSearch}`, {
                     method: "GET",  // 使用 GET 請求
                     headers: {
                         "Content-Type": "application/json",  // 設定內容類型
@@ -28,6 +28,7 @@ export default function DataTable (textOfSearch){
         
                 const result = await response.json();  // 解析回應結果
                 setData(result);  // 更新狀態
+                console.log(result)
         
             } catch (error) {
                 console.error('There was a problem with the fetch operation:', error);

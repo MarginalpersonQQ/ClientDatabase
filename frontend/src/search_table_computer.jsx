@@ -12,7 +12,7 @@ export default function ComputerDataTable(textOfSearch){
     const [data, setData] = React.useState([]);
     const getData = async () => {
         try {
-            const response = await  fetch( `${path}/api/searchdata/computer?keyword=${encodeURIComponent(textOfSearch)}`, {
+            const response = await  fetch( `${path}/api/searchdata/computer?keyword=${textOfSearch}`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
