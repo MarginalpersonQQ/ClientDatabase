@@ -2,9 +2,11 @@
     "name": "clientwebdatabase",
     "version": "1.0.0",
     "scripts": {
-      "start": "node backend/server.js",
+      "start": "cd backend && node server.js",
       "build": "cd frontend && npm run build"
     },
-    "dependencies": {}
+    "dependencies": {
+      "express": "^4.21.2"
+    }
   }
   
