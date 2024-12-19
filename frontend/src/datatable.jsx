@@ -10,7 +10,7 @@ export default function DataTable (){
         const [refreshKey, setRefreshKey] = useState(1); // 刷新觸發器
 
         //資料庫的詢問-----------------------------------------------------------------------
-        const path = 'http://127.0.0.1:5000';
+        const path = '';
         const [data, setData] = React.useState([]);
         const getData = async () => {
             try {
