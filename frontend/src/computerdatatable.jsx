@@ -237,10 +237,6 @@ export default function ComputerDataTable(){
     const handleFormModify = (e) => {
         e.preventDefault();
         // 在此處調用 API 或執行其他操作
-        if(computerformData['laptop'] === "Y"){
-        }
-        else{
-        }
         console.log(detailformDate)
         handleModifyFormSubmit();
         //提交後初始化輸入格

@@ -165,9 +165,9 @@ export default function DataTable (){
                 const response = await fetch(`${path}/api/update/custormer`, {
                     method: "PUT",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ 
-                        
-                    }),
+                    body: JSON.stringify( 
+                        formData
+                    ),
                 });
                 if (!response.ok) throw new Error("修改失敗");
                 await response.json();
@@ -182,7 +182,6 @@ export default function DataTable (){
         const handleFormModify = (e) => {
             e.preventDefault();
             // 在此處調用 API 或執行其他操作
-            console.log(detailformDate)
             handleModifyFormSubmit();
             //提交後初始化輸入格
             setFormData({ 
