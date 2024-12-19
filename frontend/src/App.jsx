@@ -3,7 +3,7 @@ import LoginPage from './loginpage.jsx'
 import DataBasePage  from './databasepage.jsx'
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // 初始值設為 false
+  const [isLoggedIn, setIsLoggedIn] = useState(true); // 初始值設為 false
   return (
       <div>
         {isLoggedIn ? <DataBasePage /> : <LoginPage setIsLoggedIn={setIsLoggedIn} />}

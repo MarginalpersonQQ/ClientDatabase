@@ -27,6 +27,7 @@ function LoginPage ({ setIsLoggedIn }) {
             message = true;
             console.log(message);
         } else {
+            alert("登入失敗!!")
             message = false;
             console.log(message); 
         }

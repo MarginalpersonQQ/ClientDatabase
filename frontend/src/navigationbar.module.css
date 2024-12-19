@@ -31,14 +31,23 @@
     transform: translate(-10%, -50%);
     z-index: 2;
 }
-:global(#search_button){
+
+
+:global(#search_button) {
     position: absolute;
-    right : 5%;
-    top:50%;
-    transform: translate(-5%, -50%);
+    right: 5%;
+    top: 50%;
+    transform: translate(0, -50%);
     z-index: 2;
 }
 
+:global(#Search_target_box) {
+    position: absolute;
+    right: 23%;
+    top: 50%;
+    transform: translate(0, -50%);
+    z-index: 2;
+}
 
 
 

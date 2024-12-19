@@ -4,10 +4,13 @@ import Sidelist from './sidelist';
 import DataTable from './datatable';
 import ComputerDataTable from './computerdatatable'
 import styles from './databasepage.module.css'  
+import Search_table_computer from './search_table_computer'
+import Search_table_customer from './search_table_customer'
 
 export default function DataBasePage() {
-  const [selectedTable, setSelectedTable] = useState(null);
+  const [selectedTable, setSelectedTable] = useState('');
   const [textOfSearch, setTextOfSerach] = useState('');
+  const [cusORcom, setcusORcom] = useState("客戶");
 
   // 根據選擇的 Table 顯示不同的資料表
   const renderDataTable = () => {
@@ -19,7 +22,7 @@ export default function DataBasePage() {
       case 'add':
         return <div>not thing in here.</div>;
       case 'searchTable':
-        return <div>{textOfSearch}</div>
+        return cusORcom === "客戶" ? <Search_table_customer textOfSearch = {textOfSearch} /> : <Search_table_computer textOfSearch = {textOfSearch}/>;
       case 'main_page':
       default:
         return <div className={styles.data}>歡迎來到資料庫</div>;
@@ -29,9 +32,11 @@ export default function DataBasePage() {
   return (
     <div className={styles.page_container}>
       <NavigationBar className = {styles.nav}
-        setSelectedTable = {setSelectedTable}
-        setTextOfSerach = {setTextOfSerach}
+        cusORcom = {cusORcom}
+        setcusORcom = {setcusORcom}
         textOfSearch = {textOfSearch}
+        setTextOfSerach = {setTextOfSerach}
+        setSelectedTable = {setSelectedTable}
       />
       <div className={styles.main_content}>
         <Sidelist className = {styles.sidelist} onSelectTable={setSelectedTable} />

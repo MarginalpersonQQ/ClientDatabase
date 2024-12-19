@@ -4,7 +4,7 @@ import styles from './datatable.module.css'
 import Newclient from './new_clinet_insert_box'
 
 
-export default function DataTable (){
+export default function DataTable (textOfSearch){
 
         const [refreshKey, setRefreshKey] = useState(1); // 刷新觸發器
 
@@ -13,7 +13,13 @@ export default function DataTable (){
         const [data, setData] = React.useState([]);
         const getData = async () => {
             try {
-                const response = await fetch(`${path}/api/getdata/customer`);
+                const response = await  fetch( `${path}/api/searchdata/customer`, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ keyword: textOfSearch }), // 將表單數據轉為 JSON
+                });
                 if (!response.ok){
                     throw new Error('Network response was not ok');
                 }
@@ -211,7 +217,7 @@ export default function DataTable (){
                     />
                 )}
                 {/*新增資料彈窗*/}
-                {isModalOpen && (
+                {/* {isModalOpen && (
                     <Newclient 
                         isOpen = {isModalOpen} 
                         onClose={handleCloseModal}
@@ -219,7 +225,7 @@ export default function DataTable (){
                         onFormChange={handleFormChange}
                         onFormSubmit={handleFormSubmit}
                     />
-                )}
+                )} */}
                 <div>
                     <Button className = {styles.fun_button} variant='contained' onClick={handleOpenModal}>新增資料</Button>
                     {showDelButton && <Button  color = "error" className = {styles.fun_button} variant='contained' onClick = {handleDelete}>刪除資料</Button>}
