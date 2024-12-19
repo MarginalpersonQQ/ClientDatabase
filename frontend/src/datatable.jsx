@@ -136,6 +136,7 @@ export default function DataTable (){
     
         useEffect(() => {
             if (checkedIDs.length === 1){
+                console.log(checkedIDs)
                 setShowModifyButton(true)
             }
             else{
