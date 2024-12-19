@@ -66,6 +66,7 @@ app.post('/api/insertdata/customer' , (req, res) => {
         });
     });
 });
+
 app.post('/api/delete/customer', (req, res) => {
     const {ids} = req.body;
     const query = 'DELETE FROM 客戶資料表 WHERE 客戶ID IN (?)';;

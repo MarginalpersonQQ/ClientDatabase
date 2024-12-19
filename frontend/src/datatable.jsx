@@ -162,7 +162,7 @@ export default function DataTable (){
         };
         const handleModifyFormSubmit = async () => {
             try {
-                const response = await fetch(`/api/update/customer`, {
+                const response = await fetch("/api/update/customer", {
                     method: "PUT",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify( 
