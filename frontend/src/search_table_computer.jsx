@@ -40,7 +40,7 @@ export default function ComputerDataTable(textOfSearch){
     const keys =  data.length > 0 ? Object.keys(data[0]) : ['這裡空空如也0', '這裡空空如也1', '這裡空空如也2', '這裡空空如也3']  
     useEffect(() => {
         getData();
-    }, [refreshKey]); // 空依賴陣列表示組件只會在第一次載入時執行
+    }, [refreshKey, textOfSearch]); // 空依賴陣列表示組件只會在第一次載入時執行
     
     //新增資料彈窗 -----------------------------------------------------------------------------
     const [isModalOpen, setModalOpen] = useState(false); // 控制彈窗狀態
