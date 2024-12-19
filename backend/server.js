@@ -76,7 +76,7 @@ app.post('/api/delete/customer', (req, res) => {
     });
 });
 
-app.post('/api/update/customer' , (req, res) => {
+app.put('/api/update/customer' , (req, res) => {
     const {name, phone1, phone2, phone3, contentperson, taxid, address, addingtime, remark, customerID} = req.body;
     const query = `
         UPDATA 客戶資料表 
