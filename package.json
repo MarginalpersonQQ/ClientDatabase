@@ -1,0 +1,10 @@
+{
+    "name": "clientwe_database",
+    "version": "1.0.0",
+    "scripts": {
+      "start": "node backend/server.js",
+      "build": "cd frontend && npm run build"
+    },
+    "dependencies": {}
+  }
+  
