@@ -155,7 +155,7 @@ export default function DataTable (){
                 setFormData({
                     name: targetData["客戶名稱"], phone1: targetData["客戶電話1"], phone2:targetData["客戶電話2"], 
                     phone3:targetData["客戶電話3"], contentperson:targetData["聯絡人"], taxid:targetData["統一編號"],
-                    address:targetData["地址"], addingtime:targetData["新增日期"],remark:targetData["備註"],custormerID:targetData["客戶ID"]
+                    address:targetData["地址"], addingtime:targetData["新增日期"].split("T")[0],remark:targetData["備註"],custormerID:targetData["客戶ID"]
                 });
                 setEditButtonClick(true); // 開啟彈窗
             }
