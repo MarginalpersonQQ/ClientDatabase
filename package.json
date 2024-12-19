@@ -2,7 +2,7 @@
     "name": "clientwebdatabase",
     "version": "1.0.0",
     "scripts": {
-      "start": "cd backend && node server.js",
+      "start": "node ../backend/server.js",
       "build": "cd frontend && npm run build"
     },
     "dependencies": {
