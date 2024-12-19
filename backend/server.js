@@ -9,10 +9,10 @@ app.use(express.static(path.join(__dirname, '../frontend/build')));
 
 //資料庫設定
 const db = mysql.createConnection({
-    host : 'localhost:3306',
-    user : 'root',
-    password : '0011224433',
-    database : 'clientrecords'
+    host : 'bvruvf9olsifjtkx99q4-mysql.services.clever-cloud.com:3306',
+    user : 'uzfe0qcigvjwkpbt',
+    password : 'Ol7X1P6kxy7dwc7JwhM5',
+    database : 'bvruvf9olsifjtkx99q4'
 });
 db.connect(err => {
     if (err) {
