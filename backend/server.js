@@ -55,6 +55,7 @@ app.get('/api/getdata/customer', (req, res) => {
 
 app.get('/api/searchdata/customer', (req, res) => {
     const { keyword } = req.query;  // 確保提供關鍵字
+    console.log(keyword);
     if (!keyword) {
         return res.status(400).send('Keyword is required.');
     }
