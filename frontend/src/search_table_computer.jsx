@@ -11,8 +11,9 @@ export default function ComputerDataTable(textOfSearch){
     const path = '';//http://127.0.0.1:5000
     const [data, setData] = React.useState([]);
     const getData = async () => {
+        console.log(textOfSearch)
         try {
-            const response = await  fetch( `${path}/api/searchdata/computer?keyword=${textOfSearch}`, {
+            const response = await  fetch( `${path}/api/searchdata/computer?keyword=${encodeURIComponent(textOfSearch)}`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",

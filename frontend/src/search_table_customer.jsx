@@ -12,8 +12,9 @@ export default function DataTable (textOfSearch){
         const path = '';
         const [data, setData] = React.useState([]);
         const getData = async () => {
+            console.log(textOfSearch)
             try {
-                const response = await fetch(`${path}/api/searchdata/customer?keyword=${textOfSearch}`, {
+                const response = await fetch(`${path}/api/searchdata/customer?keyword=${encodeURIComponent(textOfSearch)}`, {
                     method: "GET",  // 使用 GET 請求
                     headers: {
                         "Content-Type": "application/json",  // 設定內容類型
