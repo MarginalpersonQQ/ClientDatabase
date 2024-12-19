@@ -11,32 +11,32 @@ export default function ComputerDataTable(textOfSearch){
     const path = '';//http://127.0.0.1:5000
     const [data, setData] = React.useState([]);
     const getData = async () => {
-    console.log(textOfSearch);
-    try {
-        const response = await fetch(`${path}/api/searchdata/computer`, {
-            method: "POST",  
-            headers: {
-                "Content-Type": "application/json",  // 設定內容類型
-            },
-            body: JSON.stringify({
-                textOfSearch, // 這裡改為傳送 `keyword`
-            }), 
-        });
+        console.log(textOfSearch);
+        try {
+            const response = await fetch(`${path}/api/searchdata/computer`, {
+                method: "POST",  
+                headers: {
+                    "Content-Type": "application/json",  // 設定內容類型
+                },
+                body: JSON.stringify(
+                    textOfSearch, // 這裡改為傳送 `keyword`
+                ), 
+            });
 
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        } else {
-            console.log("get database data");
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            } else {
+                console.log("get database data");
+            }
+
+            const result = await response.json();  // 解析回應結果
+            setData(result);  // 更新狀態
+            console.log(result);
+
+        } catch (error) {
+            console.error('There was a problem with the fetch operation:', error);
         }
-
-        const result = await response.json();  // 解析回應結果
-        setData(result);  // 更新狀態
-        console.log(result);
-
-    } catch (error) {
-        console.error('There was a problem with the fetch operation:', error);
-    }
-};
+    };
     const keys =  data.length > 0 ? Object.keys(data[0]) : ['這裡空空如也0', '這裡空空如也1', '這裡空空如也2', '這裡空空如也3']  
     useEffect(() => {
         getData();

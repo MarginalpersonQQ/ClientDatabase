@@ -205,37 +205,34 @@ app.post('/api/searchdata/computer', (req, res) => {
     if (!keyword) {
         return res.status(400).send('Keyword is required.');
     }
-
     const query = `
         SELECT a.電腦ID, c.客戶名稱, a.客戶ID, a.電腦IP, a.新增日期, a.自購, a.筆電, b.筆電型號,
-               b.主機板型號, b.CPU型號, b.風扇, b.記憶體, b.電源供應器, b.機殼, 
-               b.顯示卡, b.網路卡, b.其他配件, b.保固到期日
-        FROM 客戶電腦資料表 a
-        JOIN 電腦配置紀錄表 b ON a.電腦ID = b.電腦ID
-        JOIN 客戶資料表 c ON a.客戶ID = c.客戶ID
-        WHERE a.電腦ID LIKE ?
-        OR a.客戶ID LIKE ?
-        OR c.客戶名稱 LIKE ?
-        OR a.電腦IP LIKE ?
-        OR b.筆電型號 LIKE ?
-        OR b.CPU型號 LIKE ?
-        OR b.顯示卡 LIKE ?
-        OR b.網路卡 LIKE ?
-        OR b.其他配件 LIKE ?
-        OR a.電腦ID LIKE ?;
+                b.主機板型號, b.CPU型號, b.風扇, b.記憶體, b.電源供應器, b.機殼, 
+                b.顯示卡, b.網路卡, b.其他配件, b.保固到期日
+            FROM 客戶電腦資料表 a
+            JOIN 電腦配置紀錄表 b ON a.電腦ID = b.電腦ID
+            JOIN 客戶資料表 c ON a.客戶ID = c.客戶ID
+            WHERE a.電腦ID LIKE ?
+            OR a.客戶ID LIKE ?
+            OR c.客戶名稱 LIKE ?
+            OR a.電腦IP LIKE ?
+            OR b.筆電型號 LIKE ?
+            OR b.CPU型號 LIKE ?
+            OR b.顯示卡 LIKE ?
+            OR b.網路卡 LIKE ?
+            OR b.其他配件 LIKE ?;
     `;
 
     const values = [
-        `%${keyword}%`,  // 電腦ID
-        `%${keyword}%`,  // 客戶ID
-        `%${keyword}%`,  // 客戶名稱
-        `%${keyword}%`,  // 電腦IP
-        `%${keyword}%`,  // 筆電型號
-        `%${keyword}%`,  // CPU型號
-        `%${keyword}%`,  // 顯示卡
-        `%${keyword}%`,  // 網路卡
-        `%${keyword}%`,   // 其他配件
-        `%${keyword}%`  // 電腦ID
+        `%${keyword}%`, // 電腦ID
+        `%${keyword}%`, // 客戶ID
+        `%${keyword}%`, // 客戶名稱
+        `%${keyword}%`, // 電腦IP
+        `%${keyword}%`, // 筆電型號
+        `%${keyword}%`, // CPU型號
+        `%${keyword}%`, // 顯示卡
+        `%${keyword}%`, // 網路卡
+        `%${keyword}%`  // 其他配件
     ];
 
     db.query(query, values, (err, results) => {
